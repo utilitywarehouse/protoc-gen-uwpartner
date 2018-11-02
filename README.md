@@ -7,6 +7,7 @@ also available in the same directory.
 
 1) Create a .proto file that defines a service, for example...
 
+<details><summary>Example</summary>
 ```proto
 syntax = "proto3";
 
@@ -25,6 +26,7 @@ message HelloResponse {
     string message = 1;
 }
 ```
+</details>
 
 2) Run `protoc --go_out=plugins=grpc:pb --uwpartner_out=pb *.proto`
 
@@ -60,6 +62,7 @@ Port that the server listens on & the port the client attempts to connect on.
 - Bootstraps all necessary interceptors
 - Listens for sigterm and gracefully shuts down the server
 
+<details><summary>Example</summary>
 ```golang
 package main
 
@@ -89,12 +92,14 @@ func (g *Greeter) SayHello(ctx context.Context, r *pb.HelloRequest) (*pb.HelloRe
 	return &pb.HelloResponse{Message: "Hello " + r.FirstName}, nil
 }
 ```
+</details>
 
 **Client:**
 
 - Creates a grpc client, dialed for the GRPC server
 - Bootstrap all necessary interceptors. Things like retries are automatically handled.
 
+<details><summary>Example</summary>
 ```golang
     ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -113,3 +118,4 @@ func (g *Greeter) SayHello(ctx context.Context, r *pb.HelloRequest) (*pb.HelloRe
     }
     fmt.Printf("response: %+v\n", resp)
 ```
+</details>
