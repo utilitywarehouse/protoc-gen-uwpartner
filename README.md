@@ -1,1 +1,1 @@
-# protoc-gen-uwpartner-
+# protoc-gen-uwpartner
