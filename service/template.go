@@ -8,6 +8,7 @@ package {{ package . }}
 
 import (
 	"context"
+	"os"
 
 	"github.com/utilitywarehouse/partner-pkg/service"
 	"github.com/utilitywarehouse/partner-pkg/operational"
@@ -34,6 +35,16 @@ type {{ .Name }}Service struct {
 // opts alter default options which are passed to all servers & clients created.
 func New{{ .Name }}Service(ctx context.Context, opts ...service.Option) *{{ .Name }}Service {
 	operational.Register()
+
+	if os.Getenv("APP_ENV") == "local" {
+		opts = append([]service.Option{
+			{{ if option "local_endpoint" }}
+				service.Endpoint("{{ option "local_endpoint" }}"),
+			{{ else }}
+				service.Endpoint("localhost"),
+			{{ end }}
+		}, opts...)
+	}
 
 	opts = append([]service.Option{
 		service.Ctx(ctx),
