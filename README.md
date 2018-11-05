@@ -7,7 +7,7 @@ also available in the same directory.
 
 1) Create a .proto file that defines a service, for example...
 
-```
+```proto
 syntax = "proto3";
 
 package pb;
