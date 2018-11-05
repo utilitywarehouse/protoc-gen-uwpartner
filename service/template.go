@@ -11,6 +11,7 @@ import (
 
 	"github.com/utilitywarehouse/partner-pkg/service"
 	"github.com/utilitywarehouse/partner-pkg/operational"
+	grpc "google.golang.org/grpc"
 )
 
 {{ range .Services }}
@@ -39,14 +40,14 @@ func New{{ .Name }}Service(ctx context.Context, opts ...service.Option) *{{ .Nam
 
 		{{ if option "namespace" }} service.Namespace("{{ option "namespace" }}"), {{ end }}
 
-		{{ if option "name" }} service.Name("{{ option "name" }}"), {{ else }} service.Name("{{ .Name.LowerCamelCase }}"), {{ end }}
+		{{ if option "name" }} service.Name("{{ option "name" }}"), {{ end }}
 
 		{{ if option "endpoint" }} service.Endpoint("{{ option "endpoint" }}"), {{ end }}
 
 		{{ if option "port" }} service.Port("{{ option "port" }}"), {{ end }}
 	}, opts...)
 	return &{{ .Name }}Service{
-		svc: service.NewService(opts...),
+		svc: service.NewService("{{ .Name.LowerCamelCase }}", opts...),
 	}
 }
 
@@ -60,26 +61,33 @@ var _ {{ .Name }}ServiceClient = (*{{ .Name.LowerCamelCase }}ServiceClient)(nil)
 // {{ .Name }}ServiceClient is the client API for {{ .Name }} service.
 type {{ .Name }}ServiceClient interface {
 	{{ .Name }}Client
+	Conn() *grpc.ClientConn
 	Close() error
 }
 
 type {{ .Name.LowerCamelCase }}ServiceClient struct {
+	svcClient *service.Client
 	*{{ .Name.LowerCamelCase }}Client
 }
 
 // Client creates a new {{ .Name }}Client with the gRPC connection already dialed
 func (s *{{ .Name }}Service) Client(opts ...service.Option) ({{ .Name }}ServiceClient, error) {
-	conn, err := s.svc.Client(opts...).Dial()
-	if err != nil {
+	client := s.svc.Client(opts...)
+	if err := client.Dial(); err != nil {
 		return nil, err
 	}
 
-	return &{{ .Name.LowerCamelCase }}ServiceClient{&{{ .Name.LowerCamelCase }}Client{conn}}, nil
+	return &{{ .Name.LowerCamelCase }}ServiceClient{client, &{{ .Name.LowerCamelCase }}Client{client.Conn()}}, nil
+}
+
+// Conn returns the dialled connection
+func (c *{{ .Name.LowerCamelCase }}ServiceClient) Conn() *grpc.ClientConn {
+	return c.svcClient.Conn()
 }
 
 // Close closes the underlying GRPC connection
 func (c *{{ .Name.LowerCamelCase }}ServiceClient) Close() error {
-	return c.cc.Close()
+	return c.svcClient.Close()
 }
 
 // ~~~ {{ .Name }} Server
