@@ -29,7 +29,7 @@ message HelloResponse {
 }
 ```
 
-2) Run `protoc --go_out=plugins=grpc:pb --uwpartner_out=pb *.proto`
+2) Run `protoc --gogo_out=plugins=grpc:pb --uwpartner_out=pb *.proto`
 
 3) You should now have a file `pb/greeter.pb.uwpartner.go`
 
