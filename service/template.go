@@ -8,7 +8,6 @@ package {{ package . }}
 
 import (
 	"context"
-	"os"
 
 	"github.com/utilitywarehouse/partner-pkg/service"
 	"github.com/utilitywarehouse/partner-pkg/operational"
