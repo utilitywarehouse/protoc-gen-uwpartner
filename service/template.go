@@ -36,20 +36,10 @@ type {{ .Name }}Service struct {
 func New{{ .Name }}Service(ctx context.Context, opts ...service.Option) *{{ .Name }}Service {
 	operational.Register()
 
-	if os.Getenv("APP_ENV") == "local" {
-		opts = append([]service.Option{
-			{{ if option "local_endpoint" }}
-				service.Endpoint("{{ option "local_endpoint" }}"),
-			{{ else }}
-				service.Endpoint("localhost"),
-			{{ end }}
-		}, opts...)
-	}
-
 	opts = append([]service.Option{
 		service.Ctx(ctx),
-
-		{{ if option "namespace" }} service.Namespace("{{ option "namespace" }}"), {{ end }}
+		service.Namespace("{{ option "namespace" }}"),
+		service.LocalEndpoint("localhost", "APP_ENV"),
 
 		{{ if option "name" }} service.Name("{{ option "name" }}"), {{ end }}
 

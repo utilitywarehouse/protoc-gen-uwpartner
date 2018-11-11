@@ -27,6 +27,11 @@ func (m *ServiceModule) InitContext(c pgs.BuildContext) {
 	m.ModuleBase.InitContext(c)
 	m.ctx = pgsgo.InitContext(c.Parameters())
 
+	// Required params
+	if m.ctx.Params().Str("namespace") == "" {
+		m.AddError("`namespace` param is required")
+	}
+
 	tpl := template.New("service").Funcs(map[string]interface{}{
 		"package": m.ctx.PackageName,
 		"option":  m.ctx.Params().Str,

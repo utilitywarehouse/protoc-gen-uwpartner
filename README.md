@@ -26,7 +26,9 @@ message HelloResponse {
 }
 ```
 
-2) Run `protoc --go_out=plugins=grpc:pb --uwpartner_out=pb *.proto`
+2) Run `protoc --go_out=plugins=grpc:pb --uwpartner_out=namespace=partner:pb *.proto`
+
+**NOTE:** The `namespace` param above is *REQUIRED*
 
 3) You should now have a file `pb/greeter.pb.uwpartner.go`
 
@@ -39,8 +41,8 @@ All these options can be overriden at runtime when creating a service in your go
 
 So to override the endpoint & port you can do `protoc --go_out=plugins=grpc:pb --uwpartner_out=endpoint=localhost,port=9000:pb *.proto`.
 
-**namespace**
-k8s namespace service runs in (or that you are targetting with the client). Default is "partner".
+**namespace** (REQUIRED)
+k8s namespace service runs in (or that you are targetting with the client).
 
 **name**
 name of the service. Default is the name of the service defined in your .proto file.
