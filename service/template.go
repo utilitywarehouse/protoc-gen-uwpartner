@@ -8,6 +8,7 @@ package {{ package . }}
 
 import (
 	"context"
+	"os"
 
 	"github.com/utilitywarehouse/partner-pkg/service"
 	"github.com/utilitywarehouse/partner-pkg/operational"
@@ -38,7 +39,9 @@ func New{{ .Name }}Service(ctx context.Context, opts ...service.Option) *{{ .Nam
 	opts = append([]service.Option{
 		service.Ctx(ctx),
 		service.Namespace("{{ option "namespace" }}"),
-		service.LocalEndpoint("localhost", "APP_ENV"),
+		service.LocalEndpoint("localhost", func() bool {
+			return os.Getenv("APP_ENV") == "local"
+		}),
 
 		{{ if option "name" }} service.Name("{{ option "name" }}"), {{ end }}
 
