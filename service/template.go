@@ -50,7 +50,7 @@ func New{{ .Name }}Service(ctx context.Context, opts ...service.Option) *{{ .Nam
 		{{ if option "port" }} service.Port("{{ option "port" }}"), {{ end }}
 	}, opts...)
 	return &{{ .Name }}Service{
-		svc: service.NewService("{{ .Name.LowerCamelCase }}", opts...),
+		svc: service.NewService("{{ .Name.LowerSnakeCase }}", opts...),
 	}
 }
 
