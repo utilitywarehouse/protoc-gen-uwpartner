@@ -4,6 +4,8 @@ github.com/golang/protobuf v1.2.0 h1:P3YflyNX/ehuJFLhxviNdFxQPkGK5cDcApsge1SqnvM
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/lyft/protoc-gen-star v0.4.2 h1:6K9xIM3TCpdjYbCzM9ywYKbOJBVO/rz1luBX/DwC9fM=
 github.com/lyft/protoc-gen-star v0.4.2/go.mod h1:mE8fbna26u7aEA2QCVvvfBU/ZrPgocG1206xAFPcs94=
+github.com/lyft/protoc-gen-star v0.4.6 h1:3WKAKMhcFPW3Xt8NYg20ksEQ6yuTeK/SK4ZRvObudFM=
+github.com/lyft/protoc-gen-star v0.4.6/go.mod h1:mE8fbna26u7aEA2QCVvvfBU/ZrPgocG1206xAFPcs94=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/spf13/afero v1.1.2 h1:m8/z1t7/fwjysjQRYbP0RD+bUIF/8tJwPdEZsI83ACI=
