@@ -1,3 +1,9 @@
+# New Home: https://github.com/utilitywarehouse/partner-mono/tree/master/pkg/protoc-gen-uwpartner
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+------------------------------------------------------------------
+
 # protoc-gen-uwpartner
 
 Generates Go code that makes use of https://github.com/utilitywarehouse/partner-pkg from a proto service definition.
